@@ -1,24 +1,10 @@
 from sqlalchemy import Column, Enum
-from sqlalchemy import String, Text, Integer, TIMESTAMP, VARCHAR, ForeignKey
+from sqlalchemy import Text, Integer, TIMESTAMP, ForeignKey
 from sqlalchemy.orm import declarative_base, relationship
 
-from api.game_handler import GameStatus, GamePlayerRole, GameColor, CardStatus
+from game.api.game_handler import GameStatus, GamePlayerRole, GameColor, CardStatus
 
 Base = declarative_base()
-
-
-class User(Base):
-    __tablename__ = 'users'
-
-    user_id = Column(Integer, primary_key=True)
-    username = Column(Text, nullable=False)
-    password_hash = Column(Text, nullable=False)
-    created_at = Column(TIMESTAMP, nullable=False)
-
-    games = relationship('Game', back_populates='creator')
-    game_players = relationship('GamePlayer', back_populates='user')
-    clue = relationship('Clue', back_populates='user')
-    move = relationship('Move', back_populates='user')
 
 
 class Game(Base):
@@ -47,7 +33,6 @@ class Room(Base):
     created_at = Column(TIMESTAMP, nullable=False)
 
     game = relationship('Game', back_populates='rooms')
-
 
 
 class GamePlayer(Base):
@@ -115,3 +100,4 @@ class Move(Base):
     game = relationship('Game', back_populates='move')
     card = relationship('Card', back_populates='move')
     user = relationship('User', back_populates='move')
+
