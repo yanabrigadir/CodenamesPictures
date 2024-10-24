@@ -19,8 +19,9 @@ target_metadata = Base
 ### Alembic commands
 - Every time when we need to create a migrations to our database:
 ```
-alembic revision --autogenerate -m "comment"
+alembic revision -m "comment"
 ```
+- Then we need to go to a new file with migration and upgrade the table;
 - To apply the changes:
 ```
 alembic upgrade heads
